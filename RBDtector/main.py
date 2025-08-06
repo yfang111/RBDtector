@@ -29,16 +29,22 @@ def read_config():
             config_chin = config.get('Settings', 'CHIN', fallback=None)
             if config_chin:
                 settings.CHIN = [int(x.strip()) for x in config_chin.split(',')]
+            else:
+                settings.CHIN = []
 
             # Index of leg channel(s) in SIGNALS_TO_EVALUATE
             config_legs = config.get('Settings', 'LEGS', fallback=None)
             if config_legs:
                 settings.LEGS = [int(x.strip()) for x in config_legs.split(',')]
+            else:
+                settings.LEGS = []
 
             # Index of arm channel(s) in SIGNALS_TO_EVALUATE
             config_arms = config.get('Settings', 'ARMS', fallback=None)
             if config_arms:
                 settings.ARMS = [int(x.strip()) for x in config_arms.split(',')]
+            else:
+                settings.ARMS = []
 
             # Artifact types to be excluded from evaluation
             settings.FLOW = config.getboolean('Settings', 'FLOW', fallback=settings.FLOW)

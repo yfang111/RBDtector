@@ -112,7 +112,7 @@ class PSG:
             .sum() \
             .gt(0)
         df['miniepoch_contains_artifact'] = artifact_in_3s_miniepoch
-        df['miniepoch_contains_artifact'] = df['miniepoch_contains_artifact'].ffill()
+        df['miniepoch_contains_artifact'] = df['miniepoch_contains_artifact'].fillna(False).astype(bool)
         df['artifact_free_rem_sleep_miniepoch'] = is_REM_series & ~df['miniepoch_contains_artifact']
 
         # find all 30s epochs of global artifact-free REM sleep for tonic event detection
@@ -121,7 +121,7 @@ class PSG:
             .sum() \
             .gt(0)
         df['epoch_contains_artifact'] = artifact_in_30s_epoch
-        df['epoch_contains_artifact'] = df['epoch_contains_artifact'].ffill()
+        df['epoch_contains_artifact'] = df['epoch_contains_artifact'].fillna(False).astype(bool)
         df['artifact_free_rem_sleep_epoch'] = is_REM_series & ~df['epoch_contains_artifact']
 
         return df['artifact_free_rem_sleep_epoch'], df['artifact_free_rem_sleep_miniepoch']
